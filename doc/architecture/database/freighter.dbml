@@ -1,0 +1,120 @@
+Table Customer {
+  CustomerId varchar [not null, unique]
+  CustomerName varchar [not null]
+  IsPayer bit [not null]
+}
+
+
+Table CustomerContact {
+  CustomerContactKey int [pk,increment]
+  CustomerId varchar [not null, ref: > Customer.CustomerId]
+  CustomerName varchar [not null]
+  PhoneNumber varchar [null]
+  EmailAddrress varchar [null]
+  IsPrimaryContact bit [not null]
+}
+
+Table CustomerLocation {
+  CustomerId varchar [pk, ref: > Customer.CustomerId]
+  LocationId varchar [pk]
+  Address1 varchar [not null]
+  Address2 varchar [null]
+  City varchar [not null]
+  StateOrProvince varchar [null]
+  PostalCode varchar [not null]
+  Country varchar [null]
+  IsMailingAddress bit [not null]
+  IsPickupLocation bit [not null]
+  IsDropoffLocation bit [not null]
+  Latitude float [null]
+  Longitude float [null]  
+  LocationCustomerContactKey int [not null, ref: > CustomerContact.CustomerContactKey]
+}
+
+Table Carrier {
+  CarrierId varchar [pk]
+  CarrierName varchar [not null, unique]
+  ContactName varchar [not null]
+  Address1 varchar [not null]
+  Address2 varchar [null]
+  City varchar [not null]
+  StateOrProvince varchar [null]
+  PostalCode varchar [not null]
+  Country varchar [null] 
+  PhoneNumber varchar [null]
+  EmailAddress varchar [null]
+}
+
+Table LoadType {  
+  LoadType varchar [pk, note: 'values could be Dry Van, Refrigerated, Flatbed, LTL, Hazmat, etc.']
+}
+
+Table CarrierLoadType {
+  CarrierId varchar [pk, ref: > Carrier.CarrierId]
+  LoadType varchar [pk, ref: > LoadType.LoadType]
+}
+
+Table OrderStatus {
+  OrderStatus varchar [pk]
+}
+
+Table Order {
+  OrderId varchar [pk]
+  BillOfLadingNumber varchar [null]
+  PayerCustomerId varchar [not null, ref: > Customer.CustomerId]
+  CustomerReferenceNumber varchar [null, note: 'for the customer\'s tracking purposes']
+  CarrierId varchar [null, ref: > Carrier.CarrierId]
+  OrderPlacedDate datetime [not null]
+  OrderStatus varchar [not null, ref: > OrderStatus.OrderStatus]
+  OrderClosedDate datetime [null]      
+  LoadType varchar [not null, ref: > LoadType.LoadType]
+}
+
+Table StopType {
+  StopType varchar [pk]
+}
+
+
+Table OrderAdditionalCharge {
+  OrderId varchar [pk, ref: > Order.OrderId]
+  AdditionalChargeSequenceNumber int [pk]
+  ChargeDescription varchar [not null]
+  ChargeAmount decimal [not null]  
+}
+
+Table OrderStop {
+  OrderId varchar [pk, ref: > Order.OrderId]
+  StopSequenceNumber int [pk]
+  StopType varchar [not null, ref: > StopType.StopType]
+  CustomerId varchar [not null]
+  LocationId varchar [not null]
+  MinExpectedArrivalTime datetime [null]
+  MaxExpectedArrivalTime datetime [null]
+  ActualArrivalTime datetime [null]
+  DepartureTime datetime [null]  
+  Distance float [null]
+  ChargePerDistanceUnit decimal [null]
+  FuelSurcharge decimal [null]
+}
+
+Ref: CustomerLocation.(CustomerId, LocationId) < OrderStop.(CustomerId, LocationId)
+
+Table CargoChangeType {
+  CargoChangeType varchar [pk, note: 'Load, Unload, Trailer Drop, Trailer Attach']
+}
+
+Table OrderStopCargoChange {
+  OrderId varchar [pk]
+  StopSequenceNumber int [pk]
+  CargoChangeSequenceNumber int [pk]
+  CargoChangeType varchar [ref: > CargoChangeType.CargoChangeType]
+  GeneralDescription varchar [not null]
+  Weight float [null]
+  TruckNumber varchar [null]
+  TrailerNumber varchar [null]
+  Driver1Name varchar [null]
+  Driver2Name varchar [null]
+}
+
+Ref: OrderStop.(OrderId, StopSequenceNumber) < OrderStopCargoChange.(OrderId, StopSequenceNumber)
+
