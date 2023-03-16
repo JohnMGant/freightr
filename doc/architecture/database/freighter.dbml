@@ -5,17 +5,16 @@ Table Customer {
 }
 
 
-Table CustomerContact {
-  CustomerContactKey int [pk,increment]
-  CustomerId varchar [not null, ref: > Customer.CustomerId]
+Table CustomerContact {  
+  CustomerId varchar [pk, ref: > Customer.CustomerId]
+  EmailAddress varchar [pk]
   CustomerName varchar [not null]
-  PhoneNumber varchar [null]
-  EmailAddrress varchar [null]
+  PhoneNumber varchar [null]  
   IsPrimaryContact bit [not null]
 }
 
 Table CustomerLocation {
-  CustomerId varchar [pk, ref: > Customer.CustomerId]
+  CustomerId varchar [pk]
   LocationId varchar [pk]
   Address1 varchar [not null]
   Address2 varchar [null]
@@ -28,8 +27,10 @@ Table CustomerLocation {
   IsDropoffLocation bit [not null]
   Latitude float [null]
   Longitude float [null]  
-  LocationCustomerContactKey int [not null, ref: > CustomerContact.CustomerContactKey]
+  ContactEmailAddress varchar
 }
+
+Ref: CustomerContact.(CustomerId, EmailAddress) < CustomerLocation.(CustomerId, ContactEmailAddress)
 
 Table Carrier {
   CarrierId varchar [pk]
@@ -117,4 +118,5 @@ Table OrderStopCargoChange {
 }
 
 Ref: OrderStop.(OrderId, StopSequenceNumber) < OrderStopCargoChange.(OrderId, StopSequenceNumber)
+
 
