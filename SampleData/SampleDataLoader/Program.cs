@@ -346,7 +346,7 @@ internal class Program
             return selectedItems.Single();
         }
         string result =string.Join(", ", selectedItems.Take(selectedItems.Count - 1)) + " and " + selectedItems.Last();
-        return string.Concat(result.First().ToString().ToUpper(), result.Skip(1).ToString());
+        return string.Concat(result.First().ToString().ToUpper(), result.Substring(1));
     }
 
     private static string GetRandomDriverName(float nullLikelihood)
