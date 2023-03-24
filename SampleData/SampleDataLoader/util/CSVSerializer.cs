@@ -81,7 +81,7 @@ public class CSVSerializer<T> : IDisposable
                 }
                 else
                 {
-                    lineValues.Add(value.Value.ToString("O"));
+                    lineValues.Add(value.Value.ToString("G"));
                 }
             }
             else
