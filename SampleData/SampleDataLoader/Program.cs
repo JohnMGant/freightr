@@ -117,11 +117,11 @@ internal class Program
                 int cargoChangeSequenceNumber = 1;
                 if (stopType == "Pickup" || stopType == "Other cargo change")
                 {
-                    orderStopCargoChanges.Add(GetDummyOrderStopCargoChange(orderId, stopSequenceIndex, cargoChangeSequenceNumber++, "pickup"));
+                    orderStopCargoChanges.Add(GetDummyOrderStopCargoChange(orderId, stopSequenceNumber, cargoChangeSequenceNumber++, "pickup"));
                 }
                 if (stopType == "Dropoff" || stopType == "Other cargo change")
                 {
-                    orderStopCargoChanges.Add(GetDummyOrderStopCargoChange(orderId, stopSequenceIndex, cargoChangeSequenceNumber++, "dropoff"));
+                    orderStopCargoChanges.Add(GetDummyOrderStopCargoChange(orderId, stopSequenceNumber, cargoChangeSequenceNumber++, "dropoff"));
                 }
             }
             int numberOfAdditionalCharges = random.Next(0, 3);
