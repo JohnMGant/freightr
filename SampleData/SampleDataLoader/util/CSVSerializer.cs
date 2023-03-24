@@ -81,7 +81,7 @@ public class CSVSerializer<T> : IDisposable
                 }
                 else
                 {
-                    lineValues.Add(value.Value.ToString("M/d/yyyy hh:mm:ss tt")); //Trying to appease the Access importer
+                    lineValues.Add($"\"{value.Value:R}\"");
                 }
             }
             else
