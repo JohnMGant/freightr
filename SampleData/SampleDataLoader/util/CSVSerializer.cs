@@ -72,7 +72,7 @@ public class CSVSerializer<T> : IDisposable
                     lineValues.Add(value);
                 }
             }
-            else if (property.PropertyType == typeof(DateTime))
+            else if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
             {
                 DateTime? value = (DateTime?)property.GetValue(item);
                 if (value is null)
@@ -81,7 +81,7 @@ public class CSVSerializer<T> : IDisposable
                 }
                 else
                 {
-                    lineValues.Add($"\"{value.Value:R}\"");
+                    lineValues.Add($"{value.Value:G}");
                 }
             }
             else
