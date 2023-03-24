@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{8F96BF0D-0BF9-4DC2-8DD3-80EA10D87326}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../SampleData/SampleDataLoader/Program.cs">
+    <Files>
+      <File FileName="Program.cs" Line="136" Column="74" />
+      <File FileName="util/CSVSerializer.cs" Line="85" Column="17" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SampleDataLoader" expanded="True">
+            <Node name="SampleDataLoader" expanded="True">
+              <Node name="lib" expanded="True" />
+              <Node name="util" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.SampleDataLoader PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
