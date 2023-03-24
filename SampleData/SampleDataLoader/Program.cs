@@ -133,7 +133,7 @@ internal class Program
                     OrderId = orderId,
                     AdditionalChargeSequenceNumber = additionalChargeIndex + 1,
                     ChargeDescription = additionalChargeTypes[additionalChargeIndex],
-                    ChargeAmount = (decimal)random.Next(100, 100000) / 10
+                    ChargeAmount = (decimal)random.Next(100, 10000) / 100
                 });
             }
         }
