@@ -81,7 +81,7 @@ public class CSVSerializer<T> : IDisposable
                 }
                 else
                 {
-                    lineValues.Add($"{value.Value:s}");
+                    lineValues.Add($"{value.Value:yyyy-MM-dd HH:mm:ss}");
                 }
             }
             else
