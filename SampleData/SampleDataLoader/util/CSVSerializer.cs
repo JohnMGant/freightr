@@ -3,9 +3,9 @@ using System.Reflection;
 
 public class CSVSerializer
 {
-    public static void Serialize<T>(Stream stream, IEnumerable<T> items, bool includeHeaderRow = false)
+    public static void Serialize<T>(Stream stream, IEnumerable<T> items, bool includeHeaderRow = false, bool forceQuoteStrings = false)
     {
-        using CSVSerializer<T> serializer = new(stream, includeHeaderRow);
+        using CSVSerializer<T> serializer = new(stream, includeHeaderRow, forceQuoteStrings);
         serializer.Serialize(items);
     }
 }
@@ -14,13 +14,15 @@ public class CSVSerializer<T> : IDisposable
 {
     private readonly StreamWriter writer;
     private readonly bool includeHeaderRow;
+    private readonly bool forceQuoteStrings;
     private List<string> lineValues;
     private readonly IEnumerable<PropertyInfo> properties;
 
-    public CSVSerializer(Stream stream, bool includeHeaderRow = false)
+    public CSVSerializer(Stream stream, bool includeHeaderRow = false, bool forceQuoteStrings = false)
     {
         this.writer = new(stream);
         this.includeHeaderRow = includeHeaderRow;
+        this.forceQuoteStrings = forceQuoteStrings;
         lineValues = new();
         properties = typeof(T).GetProperties();
     }
@@ -61,7 +63,7 @@ public class CSVSerializer<T> : IDisposable
                 {
                     lineValues.Add(string.Empty);
                 }
-                else if (value.Contains(","))
+                else if (value.Contains(',') || forceQuoteStrings)
                 {
                     lineValues.Add($"\"{value}\"");
                 }

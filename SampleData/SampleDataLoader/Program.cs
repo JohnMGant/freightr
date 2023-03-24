@@ -138,13 +138,13 @@ internal class Program
             }
         }
         using FileStream ordersStream = new("orders.csv", FileMode.Create, FileAccess.Write);
-        CSVSerializer.Serialize(ordersStream, orders, true);
+        CSVSerializer.Serialize(ordersStream, orders, true, true);
         using FileStream stopsStream = new("stops.csv", FileMode.Create, FileAccess.Write);
-        CSVSerializer.Serialize(stopsStream, orderStops, true);
+        CSVSerializer.Serialize(stopsStream, orderStops, true, true);
         using FileStream cargoStream = new("cargo.csv", FileMode.Create, FileAccess.Write);
-        CSVSerializer.Serialize(cargoStream, orderStopCargoChanges, true);
+        CSVSerializer.Serialize(cargoStream, orderStopCargoChanges, true, true);
         using FileStream chargesStream = new("charges.csv", FileMode.Create, FileAccess.Write);
-        CSVSerializer.Serialize(chargesStream, orderAdditionalCharges, true);
+        CSVSerializer.Serialize(chargesStream, orderAdditionalCharges, true, true);
     }
 
     private static string GetRandomGeneralIdentifier()
